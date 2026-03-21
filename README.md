@@ -15,6 +15,7 @@ A reusable system of Claude Code agents and skills for solo developers. SoloCraf
 | `/sc-fix <bug>` | Bug diagnosis and fix. Diagnose root cause, apply minimal fix, verify. No plan phase. |
 | `/sc-ship <request>` | Implement + commit + push + PR in one command. For approved plans or small self-contained changes. |
 | `/sc-adr <decision>` | Document an architectural decision. Creates or updates an ADR and updates the index. |
+| `/sc-audit` | Audit the SoloCraft repo for structural integrity (agents, skills, install.sh, decisions-dir). Internal maintenance tool — not deployed to target projects. |
 
 ---
 
