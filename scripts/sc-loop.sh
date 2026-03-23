@@ -5,6 +5,11 @@
 
 set -e
 
+# Ensure a recent Node.js for claude CLI (requires Node 18+)
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+nvm use stable --silent 2>/dev/null || true
+
 TASK=""
 MAX_ITERATIONS=25
 PLAN_FILE=".sc-plan.md"

@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "Edit(/.claude/skills/sc-loop/**)",
+      "Bash(chmod +x /Users/ovaxio/CascadeProjects/solocraft/scripts/sc-loop.sh)",
+      "Bash(bash scripts/sc-loop.sh \"ajouter un commentaire d''en-tête dans chaque agents/*.md\" --max 3)"
+    ],
+    "additionalDirectories": [
+      "/Users/ovaxio/CascadeProjects/solocraft/.claude/skills"
+    ]
+  }
+}
