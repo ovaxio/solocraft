@@ -57,6 +57,29 @@ for skill in "${SKILLS[@]}"; do
   INSTALLED+=("$skill")
 done
 
+# Link agents root so skills can resolve solocraft/agents/*
+SOLOCRAFT_LINK="$TARGET_DIR/solocraft"
+if [ -e "$SOLOCRAFT_LINK" ] || [ -L "$SOLOCRAFT_LINK" ]; then
+  echo "  [SKIP] solocraft link — already exists"
+else
+  ln -s "$SOLOCRAFT_DIR" "$SOLOCRAFT_LINK"
+  echo "  [OK]   solocraft → $SOLOCRAFT_DIR"
+fi
+
+# Add solocraft to .gitignore if not already there
+GITIGNORE="$TARGET_DIR/.gitignore"
+if [ -f "$GITIGNORE" ]; then
+  if ! grep -qx 'solocraft' "$GITIGNORE"; then
+    echo 'solocraft' >> "$GITIGNORE"
+    echo "  [OK]   added 'solocraft' to .gitignore"
+  else
+    echo "  [SKIP] 'solocraft' already in .gitignore"
+  fi
+else
+  echo 'solocraft' > "$GITIGNORE"
+  echo "  [OK]   created .gitignore with 'solocraft'"
+fi
+
 echo ""
 echo "Done."
 echo ""
