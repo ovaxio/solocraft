@@ -15,6 +15,7 @@ A reusable system of Claude Code agents and skills for solo developers. SoloCraf
 | `/sc-fix <bug>` | Bug diagnosis and fix. Diagnose root cause, apply minimal fix, verify. No plan phase. |
 | `/sc-ship <request>` | Implement + commit + push + PR in one command. For approved plans or small self-contained changes. |
 | `/sc-adr <decision>` | Document an architectural decision. Creates or updates an ADR and updates the index. |
+| `/sc-loop <tâche>` | Implémentation autonome itérative — plan → approbation → loop avec commits auto |
 | `/sc-audit` | Audit the SoloCraft repo for structural integrity (agents, skills, install.sh, decisions-dir). Internal maintenance tool — not deployed to target projects. |
 
 ---
@@ -118,3 +119,17 @@ Phase 5 (parallel)    → code-reviewer + verifier
 ```
 
 All context flows forward through the phases. Each agent reads `CLAUDE.md` independently and applies your project's constraints to its output.
+
+---
+
+## Solo Loop
+
+Implémentation autonome itérative pour les tâches avec scope clair.
+La progression persiste dans Git — contexte frais à chaque étape.
+
+```bash
+./scripts/sc-loop.sh "migrer les composants vers la nouvelle API"
+./scripts/sc-loop.sh "générer les tests pour tous les endpoints" --max 10
+```
+
+Le loop s'arrête quand : toutes les étapes sont complètes / STATUS:BLOCKED / max iterations atteint.
