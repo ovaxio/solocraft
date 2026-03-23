@@ -1,7 +1,7 @@
 #!/bin/bash
 # Solo Loop — autonomous iterative implementation for SoloCraft
 # Principle: progress in files and Git, not in AI context
-# Usage: ./scripts/sc-loop.sh "task description" [--max N]
+# Usage: ./scripts/sc-loop.sh "task description" [--max N] [--yes]
 
 set -e
 
@@ -12,6 +12,7 @@ nvm use stable --silent 2>/dev/null || true
 
 TASK=""
 MAX_ITERATIONS=25
+AUTO_APPROVE=0
 PLAN_FILE=".sc-plan.md"
 REPORT_FILE=".sc-report.md"
 ITERATION_LOG=".sc-iterations.md"
@@ -19,6 +20,7 @@ ITERATION_LOG=".sc-iterations.md"
 while [[ "$#" -gt 0 ]]; do
   case $1 in
     --max) MAX_ITERATIONS="$2"; shift 2 ;;
+    --yes) AUTO_APPROVE=1; shift ;;
     *) TASK="$1"; shift ;;
   esac
 done
@@ -39,6 +41,7 @@ echo "║            SOLOCRAFT SOLO LOOP           ║"
 echo "╚══════════════════════════════════════════╝"
 echo "Task:           $TASK"
 echo "Max iterations: $MAX_ITERATIONS"
+[ $AUTO_APPROVE -eq 1 ] && echo "Mode:           auto-approve (--yes)"
 echo ""
 
 # Collect context files
@@ -90,29 +93,33 @@ echo ""
 
 # ── PHASE 2: Human approval gate ───────────────────────────────────
 
-read -p "Approve this plan? (y/n/edit) " APPROVAL
+if [ $AUTO_APPROVE -eq 1 ]; then
+  echo "Plan auto-approved (--yes)."
+else
+  read -p "Approve this plan? (y/n/edit) " APPROVAL
 
-case $APPROVAL in
-  y|Y)
-    echo "Plan approved."
-    ;;
-  edit)
-    ${EDITOR:-nano} "$PLAN_FILE"
-    echo "Plan after edit:"
-    cat "$PLAN_FILE"
-    read -p "Confirm edited plan? (y/n) " CONFIRM
-    if [ "$CONFIRM" != "y" ]; then
-      echo "Aborted."
+  case $APPROVAL in
+    y|Y)
+      echo "Plan approved."
+      ;;
+    edit)
+      ${EDITOR:-nano} "$PLAN_FILE"
+      echo "Plan after edit:"
+      cat "$PLAN_FILE"
+      read -p "Confirm edited plan? (y/n) " CONFIRM
+      if [ "$CONFIRM" != "y" ]; then
+        echo "Aborted."
+        rm -f "$PLAN_FILE" "$ITERATION_LOG"
+        exit 0
+      fi
+      ;;
+    *)
+      echo "Plan rejected. Exiting."
       rm -f "$PLAN_FILE" "$ITERATION_LOG"
       exit 0
-    fi
-    ;;
-  *)
-    echo "Plan rejected. Exiting."
-    rm -f "$PLAN_FILE" "$ITERATION_LOG"
-    exit 0
-    ;;
-esac
+      ;;
+  esac
+fi
 
 TOTAL_STEPS=$(grep -c "^STEP" "$PLAN_FILE" || echo "0")
 echo ""
@@ -141,6 +148,11 @@ for i in $(seq 1 $MAX_ITERATIONS); do
   echo "──────────────────────────────────────────"
 
   if [ "$REQUIRES_CONFIRM" -gt 0 ]; then
+    if [ $AUTO_APPROVE -eq 1 ]; then
+      echo "⚠  HIGH RISK ZONE — step $i skipped in auto mode ([CONFIRM] tag)"
+      echo "## Step $i — SKIPPED (auto mode, [CONFIRM])" >> "$ITERATION_LOG"
+      continue
+    fi
     echo ""
     echo "⚠  HIGH RISK ZONE — confirmation requise ([CONFIRM] tag)"
     read -p "Exécuter cette étape ? (y/n) " STEP_CONFIRM

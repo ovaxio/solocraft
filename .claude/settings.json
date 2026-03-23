@@ -3,7 +3,8 @@
     "allow": [
       "Edit(/.claude/skills/sc-loop/**)",
       "Bash(chmod +x /Users/ovaxio/CascadeProjects/solocraft/scripts/sc-loop.sh)",
-      "Bash(bash scripts/sc-loop.sh \"ajouter un commentaire d''en-tête dans chaque agents/*.md\" --max 3)"
+      "Bash(bash scripts/sc-loop.sh \"ajouter un commentaire d''en-tête dans chaque agents/*.md\" --max 3)",
+      "Bash(bash scripts/sc-loop.sh \"dans docs/glossary.md, ajouter un glossaire des termes SoloCraft: un terme par step, avec définition et contexte. Termes: agent, skill, phase, ADR, GO/NO-GO, high-risk zone, solo loop, worktree, CLAUDE.md\" --yes)"
     ],
     "additionalDirectories": [
       "/Users/ovaxio/CascadeProjects/solocraft/.claude/skills"
