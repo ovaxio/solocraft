@@ -27,11 +27,7 @@ Review the implementation against project constraints, documented decisions, and
 - [ ] No previously-decided approach is silently reversed
 
 **ADR detection**
-Apply this protocol to each modified file:
-- Would a future developer be able to revert this value or behavior without knowing why it was set? → ADR REQUIRED
-- Was a reasonable alternative approach rejected? → ADR REQUIRED
-- Was an implicit rule established that isn't obvious from the code? → ADR REQUIRED
-- Was a non-obvious limitation discovered during implementation? → ADR REQUIRED
+Apply the detection protocol defined in `agents/_adr-protocol.md` to each modified file.
 
 ## Output Format
 

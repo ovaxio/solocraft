@@ -19,14 +19,7 @@ Perform deep technical analysis of the requested change. Identify what is truly 
 
 ## ADR Detection Protocol
 
-Flag `ADR REQUIRED` if any of the following is true:
-- A value, constant, or behavior is changing for a non-obvious reason
-- An apparently reasonable approach is being rejected in favor of another
-- An implicit rule or convention is being established
-- A previously intentional behavior is being modified
-- A limitation is discovered that others might try to work around
-
-Format: `ADR REQUIRED — [one-line reason]`
+Apply the detection protocol defined in `agents/_adr-protocol.md`.
 
 ## Output Format
 

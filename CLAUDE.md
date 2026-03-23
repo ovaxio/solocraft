@@ -1,5 +1,14 @@
 ## SoloCraft
 
+### routing
+- Feature, scope ambigu ou high-risk → /sc
+- Feature scope clair, pas de high-risk → /sc-light
+- Bug, erreur, comportement cassé → /sc-fix
+- Plan déjà approuvé ou petit changement → /sc-ship
+- Documenter une décision → /sc-adr
+- Migration, refacto, tâche répétitive → /sc-loop
+- Vérifier l'intégrité du repo SoloCraft → /sc-audit (interne)
+
 ### stack
 - Markdown pur — pas de code exécutable
 - Agents : fichiers .md dans agents/
@@ -23,3 +32,7 @@
 
 ### decisions-dir
 docs/decisions/
+Avant tout changement, vérifier les ADRs existants dans ce dossier.
+
+### self-improvement
+Après toute correction de Guillaume, appender une leçon dans le système de mémoire. Ne jamais réécrire, toujours appender.

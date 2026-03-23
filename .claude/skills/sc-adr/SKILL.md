@@ -33,36 +33,7 @@ If no ADRs exist yet, start at ADR-001.
 
 ## Step 3 — Write the ADR
 
-Use the ADR format specified in `CLAUDE.md` section SoloCraft under `adr-format`.
-
-If no format is specified, use:
-
-```markdown
-# ADR-NNN: [Title]
-
-**Date:** YYYY-MM-DD
-**Status:** Accepted
-
-## Decision
-[1-2 sentences: what was decided]
-
-## Rationale
-- [why this approach over alternatives]
-- [constraint or context that drove the decision]
-
-## Consequences
-- [what becomes easier or more consistent]
-- [what becomes constrained or harder]
-
-## DO NOT
-- Do not [action] — [reason this would break the decision]
-- Do not [action] — [reason this would break the decision]
-
-## Triggers
-Re-evaluate if: [condition that would make this decision obsolete or worth revisiting]
-```
-
-Maximum 30 lines. Be precise. No filler.
+Read `agents/_adr-protocol.md` and follow the creation protocol (format + constraints).
 
 ---
 

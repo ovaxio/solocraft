@@ -19,37 +19,7 @@ Validate that the implementation meets the acceptance criteria, introduces no re
 
 ## ADR Creation Protocol
 
-If an ADR is flagged as REQUIRED:
-1. Find the decisions directory (from CLAUDE.md section SoloCraft).
-2. Determine the next ADR number (highest existing + 1).
-3. Write the ADR using the format specified in CLAUDE.md. If no format is defined, use:
-
-```
-# ADR-NNN: [Title]
-
-**Date:** [YYYY-MM-DD]
-**Status:** Accepted
-
-## Decision
-[1-2 sentences: what was decided]
-
-## Rationale
-- [why this approach]
-- [what alternatives were considered]
-
-## Consequences
-- [what becomes easier]
-- [what becomes harder or constrained]
-
-## DO NOT
-- Do not [action] — [reason]
-- Do not [action] — [reason]
-
-## Triggers
-Re-evaluate if: [condition that would make this decision obsolete]
-```
-
-4. Update the decisions index and CLAUDE.md if applicable.
+If an ADR is flagged as REQUIRED, follow the creation protocol defined in `agents/_adr-protocol.md`.
 
 ## Output Format
 
