@@ -1,7 +1,7 @@
 #!/bin/bash
 # Solo Loop — autonomous iterative implementation for SoloCraft
-# Principle: progress in files and Git, not in AI context
-# Usage: ./scripts/sc-loop.sh "task description" [--max N] [--yes]
+# Full auto: plan → loop → commit → report. No interaction.
+# Usage: ./scripts/sc-loop.sh "task description" [--max N]
 
 set -e
 
@@ -12,17 +12,13 @@ nvm use stable --silent 2>/dev/null || true
 
 TASK=""
 MAX_ITERATIONS=25
-AUTO_APPROVE=0
-COMMIT_MODE=""
 PLAN_FILE=".sc-plan.md"
 REPORT_FILE=".sc-report.md"
-ITERATION_LOG=".sc-iterations.md"
+LOG_FILE=".sc-iterations.md"
 
 while [[ "$#" -gt 0 ]]; do
   case $1 in
     --max) MAX_ITERATIONS="$2"; shift 2 ;;
-    --yes) AUTO_APPROVE=1; shift ;;
-    --commit) COMMIT_MODE="$2"; shift 2 ;;
     *) TASK="$1"; shift ;;
   esac
 done
@@ -33,231 +29,97 @@ if [ -z "$TASK" ]; then
 fi
 
 if ! command -v claude &> /dev/null; then
-  echo "ERROR: claude CLI not found. Install: npm install -g @anthropic-ai/claude-code"
+  echo "ERROR: claude CLI not found"
   exit 1
 fi
 
-# Claude CLI flags for non-interactive subprocess calls
-CLAUDE_OPTS="--allowedTools Edit,Write,Read,Glob,Grep,Bash"
+CLAUDE="claude --print --allowedTools Edit,Write,Read,Glob,Grep,Bash"
+
+# Collect project context
+CONTEXT=""
+[ -f "CLAUDE.md" ] && CONTEXT="Read CLAUDE.md first."
 
 echo ""
 echo "╔══════════════════════════════════════════╗"
 echo "║            SOLOCRAFT SOLO LOOP           ║"
 echo "╚══════════════════════════════════════════╝"
-echo "Task:           $TASK"
-echo "Max iterations: $MAX_ITERATIONS"
-[ $AUTO_APPROVE -eq 1 ] && echo "Mode:           auto-approve (--yes)"
+echo "Task: $TASK"
+echo "Max:  $MAX_ITERATIONS"
 echo ""
 
-# Collect context files
-CONTEXT_FILES=""
-[ -f "CLAUDE.md" ] && CONTEXT_FILES="CLAUDE.md"
-[ -f "docs/decisions/README.md" ] && CONTEXT_FILES="$CONTEXT_FILES docs/decisions/README.md"
+# ── Init log ──────────────────────────────────────────────────────────
+echo "# Solo Loop — $TASK" > "$LOG_FILE"
+echo "Started: $(date)" >> "$LOG_FILE"
+echo "" >> "$LOG_FILE"
 
-# Extract high-risk zones from CLAUDE.md ## SoloCraft if present
-HIGH_RISK_ZONES=""
-if [ -f "CLAUDE.md" ]; then
-  HIGH_RISK_ZONES=$(awk '/^### high-risk-zones/,/^###/' CLAUDE.md \
-    | grep -v "^###" | grep -v "^$" | head -10 || true)
-fi
+# ── Plan ──────────────────────────────────────────────────────────────
+echo "=== Plan ==="
 
-# Init iteration log
-echo "# Solo Loop — $TASK" > "$ITERATION_LOG"
-echo "Started: $(date)" >> "$ITERATION_LOG"
-echo "" >> "$ITERATION_LOG"
-
-# ── PHASE 1: Generate plan ──────────────────────────────────────────
-
-echo "=== Generating plan ==="
-
-cat <<PROMPT | claude --print $CLAUDE_OPTS > "$PLAN_FILE"
-$([ -n "$CONTEXT_FILES" ] && echo "Read these files first: $CONTEXT_FILES")
+cat <<PROMPT | $CLAUDE > "$PLAN_FILE"
+$CONTEXT
 
 Task: $TASK
 
-$([ -n "$HIGH_RISK_ZONES" ] && echo "HIGH RISK zones in this project (require [CONFIRM] tag):
-$HIGH_RISK_ZONES")
-
-Generate a numbered implementation plan. Rules:
-- Max 10 steps
-- Each step must be atomic and completable in one Claude session
-- Each step must produce a committable change
-- Any step touching a HIGH RISK zone listed above must have a [CONFIRM] tag
-- Format exactly:
-  STEP 1: [description] [CONFIRM?]
-  STEP 2: [description]
-  ...
-  TOTAL: N steps
-
-Output the plan only. No prose. No explanation.
+Generate a numbered implementation plan.
+- Each step = one atomic change = one commit
+- Format: STEP N: [description]
+- Last line: TOTAL: N steps
+- No prose.
 PROMPT
 
-echo ""
 cat "$PLAN_FILE"
 echo ""
 
-# ── PHASE 2: Human approval gate ───────────────────────────────────
-
-if [ $AUTO_APPROVE -eq 1 ]; then
-  echo "Plan auto-approved (--yes)."
-else
-  read -p "Approve this plan? (y/n/edit) " APPROVAL
-
-  case $APPROVAL in
-    y|Y)
-      echo "Plan approved."
-      ;;
-    edit)
-      ${EDITOR:-nano} "$PLAN_FILE"
-      echo "Plan after edit:"
-      cat "$PLAN_FILE"
-      read -p "Confirm edited plan? (y/n) " CONFIRM
-      if [ "$CONFIRM" != "y" ]; then
-        echo "Aborted."
-        rm -f "$PLAN_FILE" "$ITERATION_LOG"
-        exit 0
-      fi
-      ;;
-    *)
-      echo "Plan rejected. Exiting."
-      rm -f "$PLAN_FILE" "$ITERATION_LOG"
-      exit 0
-      ;;
-  esac
-fi
-
-TOTAL_STEPS=$(grep -c "^STEP" "$PLAN_FILE" || echo "0")
-
-# ── Commit mode selection ─────────────────────────────────────────
-if [ -z "$COMMIT_MODE" ]; then
-  if [ $AUTO_APPROVE -eq 1 ]; then
-    COMMIT_MODE="auto"
-  else
-    read -p "Auto-commit après chaque step ? (y=auto / n=manual review) " COMMIT_CHOICE
-    case $COMMIT_CHOICE in
-      y|Y) COMMIT_MODE="auto" ;;
-      *)   COMMIT_MODE="manual" ;;
-    esac
-  fi
-fi
-echo "Commit mode:    $COMMIT_MODE"
-
+TOTAL=$(grep -c "^STEP" "$PLAN_FILE" || echo "0")
+echo "→ $TOTAL steps"
 echo ""
-echo "Executing $TOTAL_STEPS steps..."
 
-# ── PHASE 3: Execute loop ───────────────────────────────────────────
+# ── Loop ──────────────────────────────────────────────────────────────
+DONE=0
 
-COMPLETED=0
-BLOCKED=0
+for i in $(seq 1 "$TOTAL"); do
+  [ "$i" -gt "$MAX_ITERATIONS" ] && break
 
-for i in $(seq 1 $MAX_ITERATIONS); do
+  STEP=$(grep "^STEP $i:" "$PLAN_FILE" | sed "s/^STEP $i: //")
+  echo "── Step $i/$TOTAL: $STEP ──"
 
-  if [ $i -gt $TOTAL_STEPS ]; then
-    echo ""
-    echo "All $TOTAL_STEPS steps completed."
-    break
-  fi
+  cat <<PROMPT | $CLAUDE
+$CONTEXT
+Read $PLAN_FILE and $LOG_FILE.
 
-  CURRENT_STEP=$(grep "^STEP $i:" "$PLAN_FILE" | sed "s/^STEP $i: //")
-  REQUIRES_CONFIRM=$(echo "$CURRENT_STEP" | grep -c "\[CONFIRM\]" || true)
+Task: $TASK
+Execute step $i/$TOTAL: $STEP
 
-  echo ""
-  echo "──────────────────────────────────────────"
-  echo "Iteration $i/$TOTAL_STEPS"
-  echo "Step: $CURRENT_STEP"
-  echo "──────────────────────────────────────────"
-
-  if [ "$REQUIRES_CONFIRM" -gt 0 ]; then
-    if [ $AUTO_APPROVE -eq 1 ]; then
-      echo "⚠  HIGH RISK ZONE — step $i skipped in auto mode ([CONFIRM] tag)"
-      echo "## Step $i — SKIPPED (auto mode, [CONFIRM])" >> "$ITERATION_LOG"
-      continue
-    fi
-    echo ""
-    echo "⚠  HIGH RISK ZONE — confirmation requise ([CONFIRM] tag)"
-    read -p "Exécuter cette étape ? (y/n) " STEP_CONFIRM
-    if [ "$STEP_CONFIRM" != "y" ]; then
-      echo "Step $i skipped."
-      echo "## Step $i — SKIPPED by user" >> "$ITERATION_LOG"
-      continue
-    fi
-  fi
-
-  cat <<PROMPT | claude --print $CLAUDE_OPTS
-$([ -n "$CONTEXT_FILES" ] && echo "Read these files first: $CONTEXT_FILES")
-Read $PLAN_FILE for full task context.
-Read $ITERATION_LOG for completed steps.
-
-Current task: $TASK
-Current step ($i/$TOTAL_STEPS): $CURRENT_STEP
-
-$([ -n "$HIGH_RISK_ZONES" ] && echo "HIGH RISK zones — never touch without [CONFIRM] tag:
-$HIGH_RISK_ZONES")
-
-Execute this step only. Show diffs. Do not execute other steps.
-After completing, output exactly one of:
-  STATUS:DONE
-  STATUS:BLOCKED:[reason]
+Do this step only. Do not touch other steps.
 PROMPT
 
-  echo "## Step $i — $CURRENT_STEP" >> "$ITERATION_LOG"
-  echo "Executed: $(date)" >> "$ITERATION_LOG"
-  echo "" >> "$ITERATION_LOG"
+  echo "## Step $i — $STEP" >> "$LOG_FILE"
+  echo "Done: $(date)" >> "$LOG_FILE"
+  echo "" >> "$LOG_FILE"
 
   if ! git diff --quiet || ! git diff --staged --quiet; then
-    if [ "$COMMIT_MODE" = "manual" ]; then
-      echo ""
-      echo "── Changes at step $i ──"
-      git diff --stat
-      echo ""
-      read -p "Commit ces changements ? (y/n/diff) " COMMIT_CONFIRM
-      if [ "$COMMIT_CONFIRM" = "diff" ]; then
-        git diff
-        read -p "Commit ces changements ? (y/n) " COMMIT_CONFIRM
-      fi
-      if [ "$COMMIT_CONFIRM" != "y" ] && [ "$COMMIT_CONFIRM" != "Y" ]; then
-        echo "Step $i — changes left uncommitted."
-        echo "## Step $i — UNCOMMITTED by user" >> "$ITERATION_LOG"
-        continue
-      fi
-    fi
     git add -A
-    git commit -m "sc-loop($i/$TOTAL_STEPS): $CURRENT_STEP"
-    echo "✓ Committed step $i"
-    COMPLETED=$((COMPLETED + 1))
+    git commit -m "sc-loop($i/$TOTAL): $STEP"
+    echo "✓ Committed"
+    DONE=$((DONE + 1))
   else
-    echo "No changes at step $i"
+    echo "— No changes"
   fi
 
+  echo ""
 done
 
-# ── PHASE 4: Final report ───────────────────────────────────────────
+# ── Report ────────────────────────────────────────────────────────────
+echo "=== Report ==="
 
-echo ""
-echo "=== Generating final report ==="
-
-cat <<PROMPT | claude --print $CLAUDE_OPTS > "$REPORT_FILE"
-Read $ITERATION_LOG.
-
-Generate a completion report for: $TASK
-Include:
-- Steps completed ($COMPLETED/$TOTAL_STEPS)
-- Files changed (git log --name-only -$COMPLETED)
-- Remaining TODOs if any
-- ADR needed? YES/NO — reason (use criteria from CLAUDE.md if present)
-
-Markdown. Max 20 lines.
+cat <<PROMPT | $CLAUDE > "$REPORT_FILE"
+Read $LOG_FILE.
+Report for: $TASK
+Steps done: $DONE/$TOTAL. Files changed. ADR needed? Markdown, 15 lines max.
 PROMPT
 
-rm -f "$PLAN_FILE" "$ITERATION_LOG"
-
-echo ""
-echo "╔══════════════════════════════════════════╗"
-echo "║          SOLO LOOP COMPLETE              ║"
-echo "╚══════════════════════════════════════════╝"
 cat "$REPORT_FILE"
+
+rm -f "$PLAN_FILE" "$LOG_FILE"
 echo ""
-echo "Report saved: $REPORT_FILE"
-echo "Completed: $COMPLETED/$TOTAL_STEPS steps"
-[ $BLOCKED -eq 1 ] && echo "Status: BLOCKED — intervention manuelle requise"
-[ $BLOCKED -eq 0 ] && echo "Status: COMPLETE"
+echo "Done: $DONE/$TOTAL steps"
