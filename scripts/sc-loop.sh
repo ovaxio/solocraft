@@ -35,6 +35,9 @@ if ! command -v claude &> /dev/null; then
   exit 1
 fi
 
+# Claude CLI flags for non-interactive subprocess calls
+CLAUDE_OPTS="--allowedTools Edit,Write,Read,Glob,Grep,Bash"
+
 echo ""
 echo "╔══════════════════════════════════════════╗"
 echo "║            SOLOCRAFT SOLO LOOP           ║"
@@ -65,7 +68,7 @@ echo "" >> "$ITERATION_LOG"
 
 echo "=== Generating plan ==="
 
-claude --print "
+cat <<PROMPT | claude --print $CLAUDE_OPTS > "$PLAN_FILE"
 $([ -n "$CONTEXT_FILES" ] && echo "Read these files first: $CONTEXT_FILES")
 
 Task: $TASK
@@ -85,7 +88,7 @@ Generate a numbered implementation plan. Rules:
   TOTAL: N steps
 
 Output the plan only. No prose. No explanation.
-" > "$PLAN_FILE"
+PROMPT
 
 echo ""
 cat "$PLAN_FILE"
@@ -163,7 +166,7 @@ for i in $(seq 1 $MAX_ITERATIONS); do
     fi
   fi
 
-  claude --print "
+  cat <<PROMPT | claude --print $CLAUDE_OPTS
 $([ -n "$CONTEXT_FILES" ] && echo "Read these files first: $CONTEXT_FILES")
 Read $PLAN_FILE for full task context.
 Read $ITERATION_LOG for completed steps.
@@ -178,7 +181,7 @@ Execute this step only. Show diffs. Do not execute other steps.
 After completing, output exactly one of:
   STATUS:DONE
   STATUS:BLOCKED:[reason]
-"
+PROMPT
 
   echo "## Step $i — $CURRENT_STEP" >> "$ITERATION_LOG"
   echo "Executed: $(date)" >> "$ITERATION_LOG"
@@ -200,7 +203,7 @@ done
 echo ""
 echo "=== Generating final report ==="
 
-claude --print "
+cat <<PROMPT | claude --print $CLAUDE_OPTS > "$REPORT_FILE"
 Read $ITERATION_LOG.
 
 Generate a completion report for: $TASK
@@ -211,7 +214,7 @@ Include:
 - ADR needed? YES/NO — reason (use criteria from CLAUDE.md if present)
 
 Markdown. Max 20 lines.
-" > "$REPORT_FILE"
+PROMPT
 
 rm -f "$PLAN_FILE" "$ITERATION_LOG"
 
