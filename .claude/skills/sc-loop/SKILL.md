@@ -1,7 +1,7 @@
 ---
 name: sc-loop
 description: Implémentation autonome itérative — une étape atomique par itération avec contexte frais, commit automatique, et gate d'approbation humaine sur le plan. Utiliser pour les migrations, refactorisations avec scope clair, génération de tests, documentation. Ne pas utiliser pour les zones HIGH RISK du projet sans tag [CONFIRM] explicite dans le plan.
-argument-hint: <description de la tâche> [--max N] [--yes]
+argument-hint: <description de la tâche> [--max N] [--yes] [--commit auto|manual]
 ---
 
 # sc-loop — Solo Loop
@@ -23,9 +23,15 @@ En mode `--yes` : le plan est auto-approuvé, les steps [CONFIRM] (HIGH RISK) so
 
 Si `$ARGUMENTS` ne contient pas `--max`, utiliser la valeur par défaut (25 itérations).
 
+**Commit mode** (`--commit auto|manual`) :
+- `auto` : commit automatique après chaque step (défaut en `--yes`)
+- `manual` : affiche le diff et demande confirmation avant chaque commit
+- Si non spécifié en mode interactif, le script demande au démarrage
+
 En terminal interactif (sans `--yes`), le script demandera :
 1. Approbation du plan généré (y/n/edit)
-2. Confirmation sur les steps [CONFIRM] touchant des zones HIGH RISK
+2. Mode de commit (auto/manual)
+3. Confirmation sur les steps [CONFIRM] touchant des zones HIGH RISK
 
 ## Quand utiliser
 

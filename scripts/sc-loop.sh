@@ -13,6 +13,7 @@ nvm use stable --silent 2>/dev/null || true
 TASK=""
 MAX_ITERATIONS=25
 AUTO_APPROVE=0
+COMMIT_MODE=""
 PLAN_FILE=".sc-plan.md"
 REPORT_FILE=".sc-report.md"
 ITERATION_LOG=".sc-iterations.md"
@@ -21,6 +22,7 @@ while [[ "$#" -gt 0 ]]; do
   case $1 in
     --max) MAX_ITERATIONS="$2"; shift 2 ;;
     --yes) AUTO_APPROVE=1; shift ;;
+    --commit) COMMIT_MODE="$2"; shift 2 ;;
     *) TASK="$1"; shift ;;
   esac
 done
@@ -125,6 +127,21 @@ else
 fi
 
 TOTAL_STEPS=$(grep -c "^STEP" "$PLAN_FILE" || echo "0")
+
+# ── Commit mode selection ─────────────────────────────────────────
+if [ -z "$COMMIT_MODE" ]; then
+  if [ $AUTO_APPROVE -eq 1 ]; then
+    COMMIT_MODE="auto"
+  else
+    read -p "Auto-commit après chaque step ? (y=auto / n=manual review) " COMMIT_CHOICE
+    case $COMMIT_CHOICE in
+      y|Y) COMMIT_MODE="auto" ;;
+      *)   COMMIT_MODE="manual" ;;
+    esac
+  fi
+fi
+echo "Commit mode:    $COMMIT_MODE"
+
 echo ""
 echo "Executing $TOTAL_STEPS steps..."
 
@@ -188,6 +205,22 @@ PROMPT
   echo "" >> "$ITERATION_LOG"
 
   if ! git diff --quiet || ! git diff --staged --quiet; then
+    if [ "$COMMIT_MODE" = "manual" ]; then
+      echo ""
+      echo "── Changes at step $i ──"
+      git diff --stat
+      echo ""
+      read -p "Commit ces changements ? (y/n/diff) " COMMIT_CONFIRM
+      if [ "$COMMIT_CONFIRM" = "diff" ]; then
+        git diff
+        read -p "Commit ces changements ? (y/n) " COMMIT_CONFIRM
+      fi
+      if [ "$COMMIT_CONFIRM" != "y" ] && [ "$COMMIT_CONFIRM" != "Y" ]; then
+        echo "Step $i — changes left uncommitted."
+        echo "## Step $i — UNCOMMITTED by user" >> "$ITERATION_LOG"
+        continue
+      fi
+    fi
     git add -A
     git commit -m "sc-loop($i/$TOTAL_STEPS): $CURRENT_STEP"
     echo "✓ Committed step $i"
