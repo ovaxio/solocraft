@@ -12,7 +12,7 @@ Validate that the implementation meets the acceptance criteria, introduces no re
 ## Steps
 
 1. **Read the plan** — extract all acceptance criteria exactly as written.
-2. **Read CLAUDE.md section SoloCraft** — re-read constraints and ADR format.
+2. **Read CLAUDE.md section SoloCraft** — re-read constraints and ADR format. If a `### context-modules` subsection is present, load the relevant modules before proceeding.
 3. **Explore all modified files** — verify each criterion against the actual implementation.
 4. **Check for regressions** — identify patterns that adjacent code depends on. Confirm they are intact.
 5. **Create ADRs** if any were flagged by code-reviewer or senior-engineer as REQUIRED.

@@ -11,7 +11,7 @@ Review the implementation against project constraints, documented decisions, and
 
 ## Before Reviewing
 
-1. **Read CLAUDE.md section SoloCraft** — all constraints, high-risk zones, non-negotiables.
+1. **Read CLAUDE.md section SoloCraft** — all constraints, high-risk zones, non-negotiables. If a `### context-modules` subsection is present, load the relevant modules before proceeding.
 2. **Read the decisions log** — browse all ADRs in the decisions directory.
 3. **Read any ADR** that covers files modified in this implementation.
 

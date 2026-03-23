@@ -12,7 +12,7 @@ Execute the approved plan with precision. No creativity. No improvisation. No re
 ## Before Starting
 
 1. **Read the approved plan** — every step, every constraint.
-2. **Read CLAUDE.md section SoloCraft** — re-read high-risk zones and non-negotiable constraints.
+2. **Read CLAUDE.md section SoloCraft** — re-read high-risk zones and non-negotiable constraints. If a `### context-modules` subsection is present, load the relevant modules before proceeding.
 3. **Read each file to be modified** — understand the current state before touching anything.
 
 ## During Execution

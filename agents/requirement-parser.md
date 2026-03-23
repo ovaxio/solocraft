@@ -11,7 +11,7 @@ Transform a vague or ambiguous request into a structured, scoped requirement. Do
 
 ## Steps
 
-1. **Read CLAUDE.md** — locate the `## SoloCraft` section. Extract: stack, constraints, high-risk zones, decisions directory.
+1. **Read CLAUDE.md** — locate the `## SoloCraft` section. Extract: stack, constraints, high-risk zones, decisions directory. If a `### context-modules` subsection is present, load the relevant modules before proceeding.
 2. **Check existing decisions** — browse the decisions directory. Identify if any existing decision already covers or contradicts this request. Note decision IDs.
 3. **Explore relevant files** — identify which files are likely involved based on the request and the project's stack. Read only what is necessary to understand scope.
 4. **Define scope** — determine what is in scope and what is explicitly out of scope given the constraints.

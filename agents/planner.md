@@ -19,7 +19,7 @@ Produce a precise, ordered implementation plan. Every step must be atomic and in
 
 ## Steps
 
-1. **Read CLAUDE.md section SoloCraft** — re-read all constraints and high-risk zones.
+1. **Read CLAUDE.md section SoloCraft** — re-read all constraints and high-risk zones. If a `### context-modules` subsection is present, load the relevant modules before proceeding.
 2. **Read all decisions** listed as relevant in phase 1 outputs.
 3. **Read all files** listed as impacted in the Senior Engineer output.
 4. **Produce the plan** using the format below.

@@ -11,7 +11,7 @@ Perform deep technical analysis of the requested change. Identify what is truly 
 
 ## Steps
 
-1. **Read CLAUDE.md** — locate the `## SoloCraft` section. Extract: stack, high-risk zones, infrastructure constraints, decisions directory.
+1. **Read CLAUDE.md** — locate the `## SoloCraft` section. Extract: stack, high-risk zones, infrastructure constraints, decisions directory. If a `### context-modules` subsection is present, load the relevant modules before proceeding.
 2. **Explore impacted files** — trace the request through the codebase. Read the relevant files. Understand the current implementation before assessing the change.
 3. **Identify high-risk zones touched** — cross-reference discovered files with the high-risk zones listed in CLAUDE.md.
 4. **Detect if an ADR is required** — apply the ADR detection protocol below.

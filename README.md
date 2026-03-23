@@ -65,6 +65,7 @@ Copy the `## SoloCraft` block into your project's `CLAUDE.md` and fill in:
 - `constraints` — non-negotiable rules
 - `high-risk-zones` — files requiring confirmation before modification
 - `decisions-dir` — path to your ADR directory (e.g. `docs/decisions/`)
+- `context-modules` — optional mapping of domains to context files (e.g. `scoring: context/scoring.md`)
 - `adr-format` — optional custom ADR template
 
 ---

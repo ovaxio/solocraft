@@ -37,6 +37,18 @@
 # Example: docs/decisions/
 [YOUR DECISIONS DIRECTORY PATH HERE]
 
+### context-modules
+# Optional. Map domain names to context files that agents should load when working on that domain.
+# This bridges the SoloCraft dispatch layer with your project's domain knowledge.
+# Without this, agents can detect risk but cannot evaluate the substance of a change.
+# Format: one line per domain — domain-name: path/to/file.md (or comma-separated paths)
+# Example:
+# - scoring: context/scoring.md, context/lessons.md
+# - frontend: context/frontend.md, context/lessons.md
+# - billing: context/billing.md
+# If absent, agents explore the codebase on their own (default behavior).
+[OPTIONAL: YOUR DOMAIN-TO-CONTEXT MAPPINGS HERE, OR DELETE THIS SECTION]
+
 ### adr-format
 # Optional. Define a custom ADR template if you want something different from the default.
 # If this section is absent, sc-adr uses the built-in format.
