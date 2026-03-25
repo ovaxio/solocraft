@@ -10,6 +10,7 @@ A reusable system of Claude Code agents and skills for solo developers. SoloCraf
 
 | Command | When to use |
 |---|---|
+| `/sc-research <idea>` | Market and competitive research before building. Produces a 1-page brief with verdict. (optional, before `/sc` for features with a product angle) |
 | `/sc <request>` | Full workflow: parallel research, GO/NO-GO decision, plan approval, implementation, review, verification. Use for anything non-trivial or touching high-risk areas. |
 | `/sc-light <request>` | Streamlined workflow: analyze, plan, approve, implement, verify. For features where the scope is already clear and no high-risk zones are involved. |
 | `/sc-fix <bug>` | Bug diagnosis and fix. Diagnose root cause, apply minimal fix, verify. No plan phase. |
