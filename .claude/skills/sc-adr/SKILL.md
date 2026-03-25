@@ -10,6 +10,12 @@ $ARGUMENTS
 
 ---
 
+## Model directive
+
+All steps use `model: "sonnet"`. When spawning subagents, pass `model: "sonnet"`.
+
+---
+
 ## Step 1 — Check existing decisions
 
 Read `CLAUDE.md` and locate the `## SoloCraft` section. Find the `decisions-dir` field — this is the path to the decisions directory.

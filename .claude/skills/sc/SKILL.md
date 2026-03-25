@@ -10,6 +10,20 @@ $ARGUMENTS
 
 ---
 
+## Model directives
+
+| Phase | Model |
+|---|---|
+| Phase 1 — Research (subagents) | sonnet |
+| Phase 2 — GO/NO-GO | opus |
+| Phase 3 — Plan + Approval | sonnet |
+| Phase 4 — Implementation (subagents) | sonnet |
+| Phase 5 — Review + Verification (subagents) | sonnet |
+
+When spawning subagents, pass the corresponding `model` parameter from the table above. Phase 2 (GO/NO-GO) uses `model: "opus"` for deeper reasoning on critical decisions.
+
+---
+
 ## Phase 1 — Research (parallel)
 
 Spawn 3 subagents in parallel using the Task tool. Do not wait for one to finish before starting the others.

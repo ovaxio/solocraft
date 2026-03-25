@@ -16,6 +16,10 @@ bash solocraft/scripts/sc-loop.sh "$TASK_DESCRIPTION" $MAX_FLAG
 
 Extract `--max N` from `$ARGUMENTS` if present, otherwise default = 25.
 
+## Model directive
+
+sc-loop delegates to `sc-loop.sh` which spawns fresh Claude contexts. Model selection is controlled by the script's `--model` flag if available, not by skill-level directives. Default: sonnet.
+
 ## When to use
 
 - Migrations, refactorings with clear scope

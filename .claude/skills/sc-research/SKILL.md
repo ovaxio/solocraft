@@ -24,6 +24,17 @@ Founder profile context to read from CLAUDE.md section SoloCraft:
 
 If CLAUDE.md has no ## SoloCraft section, ask the user for: target, stack, and constraints before proceeding.
 
+## Model directives
+
+| Phase | Model |
+|---|---|
+| Phase 1 — Understand | sonnet |
+| Phase 2 — Market research (search subagents) | haiku |
+| Phase 3 — Competitive analysis | sonnet |
+| Phase 4 — Solo founder validation | sonnet |
+
+When spawning search subagents in Phase 2, use `model: "haiku"`. All analytical phases use the default model (sonnet).
+
 ## 4 sequential phases
 
 ### Phase 1 - Understand the request

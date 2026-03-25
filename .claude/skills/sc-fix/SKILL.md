@@ -10,6 +10,18 @@ $ARGUMENTS
 
 ---
 
+## Model directives
+
+| Step | Model |
+|---|---|
+| Step 1 — Diagnosis | sonnet |
+| Step 2 — Fix | sonnet |
+| Step 3 — Verification | sonnet |
+
+When spawning subagents, pass the corresponding `model` parameter from the table above.
+
+---
+
 ## Step 1 — Diagnosis
 
 Read `CLAUDE.md` and locate the `## SoloCraft` section. Extract: stack, high-risk zones, constraints.

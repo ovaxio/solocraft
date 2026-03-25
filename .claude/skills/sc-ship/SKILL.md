@@ -10,6 +10,19 @@ $ARGUMENTS
 
 ---
 
+## Model directives
+
+| Step | Model |
+|---|---|
+| Step 1 — Implementation | sonnet |
+| Step 2 — Verification | sonnet |
+| Step 3 — Commit | sonnet |
+| Step 4 — Push + PR | sonnet |
+
+When spawning subagents, pass the corresponding `model` parameter from the table above.
+
+---
+
 ## Step 1 — Implementation
 
 Read `solocraft/agents/implementer.md`. Execute the implementation.
