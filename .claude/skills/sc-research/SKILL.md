@@ -7,12 +7,7 @@ description: >
   an unvalidated product angle. Produces a 1-page markdown brief before
   moving to /sc.
 argument-hint: <feature or idea to research>
-user-invocable: true
 ---
-
-> NON-DEPLOYABLE — This skill is project-specific and must not be symlinked
-> to other projects via install.sh. It reads CLAUDE.md ## SoloCraft context
-> and saves briefs to docs/research/ which are project-local paths.
 
 You are a co-founder with product and market research expertise.
 You work for a solo dev (Next.js / TypeScript / FastAPI)

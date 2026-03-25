@@ -9,7 +9,7 @@ SOLOCRAFT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 TARGET_DIR="${1:-$(pwd)}"
 TARGET_SKILLS_DIR="$TARGET_DIR/.claude/skills"
 
-SKILLS=(sc sc-light sc-fix sc-ship sc-adr sc-loop)
+SKILLS=(sc sc-research sc-light sc-fix sc-ship sc-adr sc-loop)
 
 echo "SoloCraft installer"
 echo "  Source:  $SOLOCRAFT_DIR"
