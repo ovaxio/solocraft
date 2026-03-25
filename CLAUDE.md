@@ -7,6 +7,7 @@
 - Plan already approved or small change → /sc-ship
 - Document a decision → /sc-adr
 - Migration, refactoring, repetitive task → /sc-loop
+- Market/competitive research before building (optional, before /sc) → /sc-research
 - Verify SoloCraft repo integrity → /sc-audit (internal)
 
 ### stack

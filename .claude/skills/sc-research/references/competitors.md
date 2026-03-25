@@ -22,8 +22,8 @@ For each identified gap, ask:
 
 ## Expected output table
 
-| Competitor | Pricing | G2/reviews | Main weakness | Target |
-|---|---|---|---|---|
-| [name] | [price] | [rating/count] | [one sentence] | [target] |
+| Competitor | Price | Main weakness | Target |
+|---|---|---|---|
+| [name] | [price] | [one sentence] | [target] |
 
 Main gap: [one sentence on what nobody does well for our target]
