@@ -1,29 +1,29 @@
 ---
 name: sc-loop
-description: Implémentation autonome itérative — plan, loop avec commits auto, report. Full auto, zéro interaction.
-argument-hint: <description de la tâche> [--max N]
+description: Autonomous iterative implementation — plan, loop with auto commits, report. Full auto, zero interaction.
+argument-hint: <task description> [--max N]
 ---
 
 # sc-loop — Solo Loop
 
-Full auto : plan → loop → commit → report. Chaque itération a un contexte Claude frais.
+Full auto: plan → loop → commit → report. Each iteration has a fresh Claude context.
 
-## Exécution
+## Execution
 
 ```bash
 bash solocraft/scripts/sc-loop.sh "$TASK_DESCRIPTION" $MAX_FLAG
 ```
 
-Extraire `--max N` de `$ARGUMENTS` s'il est présent, sinon défaut = 25.
+Extract `--max N` from `$ARGUMENTS` if present, otherwise default = 25.
 
-## Quand utiliser
+## When to use
 
-- Migrations, refactorisations avec scope clair
-- Génération de docs ou de tests
-- Tâches répétitives sur plusieurs fichiers
+- Migrations, refactorings with clear scope
+- Documentation or test generation
+- Repetitive tasks across multiple files
 
-## Quand NE PAS utiliser
+## When NOT to use
 
-- Zones HIGH RISK → `/sc`
-- Décisions architecturales → `/sc`
-- Scope ambigu → `/sc-light`
+- HIGH RISK zones → `/sc`
+- Architectural decisions → `/sc`
+- Ambiguous scope → `/sc-light`

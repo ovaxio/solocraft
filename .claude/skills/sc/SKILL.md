@@ -40,7 +40,7 @@ Read `solocraft/agents/planner.md`. Execute its instructions using all phase 1 a
 
 Present the full plan to the user.
 
-Ask: **"Approuves-tu ce plan ? (oui pour continuer, non + feedback pour réviser)"**
+Ask: **"Do you approve this plan? (yes to continue, no + feedback to revise)"**
 
 Wait for explicit approval. If the user provides feedback, revise the plan and ask again. Loop until the user approves.
 

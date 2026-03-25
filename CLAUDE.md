@@ -1,38 +1,38 @@
 ## SoloCraft
 
 ### routing
-- Feature, scope ambigu ou high-risk → /sc
-- Feature scope clair, pas de high-risk → /sc-light
-- Bug, erreur, comportement cassé → /sc-fix
-- Plan déjà approuvé ou petit changement → /sc-ship
-- Documenter une décision → /sc-adr
-- Migration, refacto, tâche répétitive → /sc-loop
-- Vérifier l'intégrité du repo SoloCraft → /sc-audit (interne)
+- Feature, ambiguous scope or high-risk → /sc
+- Feature with clear scope, no high-risk → /sc-light
+- Bug, error, broken behavior → /sc-fix
+- Plan already approved or small change → /sc-ship
+- Document a decision → /sc-adr
+- Migration, refactoring, repetitive task → /sc-loop
+- Verify SoloCraft repo integrity → /sc-audit (internal)
 
 ### stack
-- Markdown pur — pas de code exécutable
-- Agents : fichiers .md dans agents/
-- Skills : fichiers SKILL.md dans .claude/skills/*/
+- Pure Markdown — no executable code
+- Agents: .md files in agents/
+- Skills: SKILL.md files in .claude/skills/*/
 
 ### target
-- Utilisateur : dev solo SaaS
-- Objectif : workflow Claude Code réutilisable multi-projets
-- Stade : v1 — utilisé sur 1 projet actif
+- User: solo SaaS developer
+- Goal: reusable Claude Code workflow across projects
+- Stage: v1 — used on 1 active project
 
 ### constraints
-- Zéro référence à un projet spécifique dans les agents
-- Le contexte projet vient toujours du CLAUDE.md du projet cible via ## SoloCraft
-- Pas de dépendances externes
-- install.sh doit rester idempotent
+- Zero references to a specific project in agents
+- Project context always comes from the target project's CLAUDE.md via ## SoloCraft
+- No external dependencies
+- install.sh must remain idempotent
 
 ### high-risk-zones
-- agents/senior-engineer.md — toute modification change le comportement de détection ADR
-- agents/cto-advisor.md — toute modification change les critères GO/NO-GO
-- .claude/skills/sc/SKILL.md — toute modification change l'orchestration principale
+- agents/senior-engineer.md — any modification changes ADR detection behavior
+- agents/cto-advisor.md — any modification changes GO/NO-GO criteria
+- .claude/skills/sc/SKILL.md — any modification changes the main orchestration
 
 ### decisions-dir
 docs/decisions/
-Avant tout changement, vérifier les ADRs existants dans ce dossier.
+Before any change, check existing ADRs in this directory.
 
 ### self-improvement
-Après toute correction de Guillaume, appender une leçon dans le système de mémoire. Ne jamais réécrire, toujours appender.
+After any correction from Guillaume, append a lesson to the memory system. Never overwrite, always append.

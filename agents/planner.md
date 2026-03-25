@@ -64,5 +64,5 @@ lane: planned
 - If a high-risk zone is touched: add a confirmation step immediately before that modification.
 - Maximum 12 steps. If more are needed, split into phases and present phase 1 only.
 - The "What NOT to do" section must reference at least one constraint from CLAUDE.md.
-- Toujours inclure un champ `lane: planned` en haut de chaque plan généré — le Solo Loop le met à `doing` au démarrage et `done` à la fin.
+- Always include a `lane: planned` field at the top of every generated plan — the Solo Loop sets it to `doing` at start and `done` at the end.
 - Do not begin implementation. Do not modify files. Only plan.

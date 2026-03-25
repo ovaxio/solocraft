@@ -42,7 +42,7 @@ Read `solocraft/agents/planner.md`. Produce the implementation plan using the an
 
 Present the plan to the user.
 
-Ask: **"Approuves-tu ce plan ? (oui pour continuer, non + feedback pour réviser)"**
+Ask: **"Do you approve this plan? (yes to continue, no + feedback to revise)"**
 
 Wait for explicit approval. Loop on feedback until approved.
 

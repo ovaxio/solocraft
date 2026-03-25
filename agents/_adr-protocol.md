@@ -1,6 +1,6 @@
 # ADR Protocol
 
-Référence unique pour la détection et la création d'ADRs. Utilisé par : senior-engineer, code-reviewer, verifier, sc-adr.
+Single reference for ADR detection and creation. Used by: senior-engineer, code-reviewer, verifier, sc-adr.
 
 ## Detection
 

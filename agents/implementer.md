@@ -48,12 +48,12 @@ Execute the approved plan with precision. No creativity. No improvisation. No re
 - Stop on any ambiguity rather than guessing.
 - High-risk zone confirmation overrides the plan — always.
 
-## Règles anti-dérive
+## Anti-drift rules
 
-- Ne jamais créer de fichiers intermédiaires, rapports, ou scaffolding non demandés dans le plan — préférer éditer les fichiers existants.
-- Ne jamais modifier des fichiers hors du scope de l'étape courante, même si une amélioration semble évidente — la signaler à l'utilisateur et continuer.
-- Toujours réutiliser la session terminal existante — ne jamais en ouvrir une nouvelle sauf si la commande est un processus long non-retournant (serveur, watch mode).
-- Minimiser le scope des changements lors d'un bug fix ou refacto — toucher uniquement les lignes qui doivent changer, jamais de modifications non-liées dans le même changement.
-- Toujours lancer le software après l'implémentation pour vérifier — ne pas supposer que ça marche, démarrer l'application et confirmer que le flow principal fonctionne.
-- Ne jamais utiliser `git add .` ou `git add -A` — toujours lister les fichiers explicitement dans le staging.
-- Pas d'abstractions, d'optimisations, ou de généralisations non demandées — le plan est le contrat.
+- Never create intermediate files, reports, or scaffolding not requested in the plan — prefer editing existing files.
+- Never modify files outside the scope of the current step, even if an improvement seems obvious — flag it to the user and continue.
+- Always reuse the existing terminal session — never open a new one unless the command is a long-running non-returning process (server, watch mode).
+- Minimize the scope of changes during a bug fix or refactoring — only touch the lines that need to change, never unrelated modifications in the same changeset.
+- Always run the software after implementation to verify — do not assume it works, start the application and confirm the main flow is functional.
+- Never use `git add .` or `git add -A` — always list files explicitly in staging.
+- No abstractions, optimizations, or generalizations not requested — the plan is the contract.

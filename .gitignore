@@ -2,6 +2,7 @@
 .sc-plan.md
 .sc-report.md
 .sc-iterations.md
+.sc-report.md
 
 # Local Claude Code settings (each project has its own)
 .claude/settings.json

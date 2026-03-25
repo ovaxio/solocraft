@@ -1,71 +1,71 @@
-# Research Brief — [Feature/Idée]
+# Research Brief — [Feature/Idea]
 
-**Date :** YYYY-MM-DD
-**Projet :** [nom du projet depuis CLAUDE.md]
-**Argument :** [ce qui a été recherché]
-**Sources :** web search / connaissance interne [mention si limitées]
-
----
-
-## Le vrai sujet
-
-[Une phrase qui reformule ce qu'on cherche vraiment à valider]
+**Date:** YYYY-MM-DD
+**Project:** [project name from CLAUDE.md]
+**Argument:** [what was researched]
+**Sources:** web search / internal knowledge [mention if limited]
 
 ---
 
-## Marché
+## The real question
 
-**Taille estimée :** [ordre de grandeur, source]
-**Maturité :** [le marché comprend-il le problème ?]
-**Timing :** [pourquoi maintenant ?]
-**Signaux d'alarme :** [nombre détecté sur 6 - liste si >= 1]
+[One sentence reformulating what we're really trying to validate]
 
 ---
 
-## Concurrence
+## Market
 
-| Concurrent | Prix | Faiblesse | Cible |
+**Estimated size:** [order of magnitude, source]
+**Maturity:** [does the market understand the problem?]
+**Timing:** [why now?]
+**Red flags:** [count detected out of 6 - list if >= 1]
+
+---
+
+## Competition
+
+| Competitor | Price | Weakness | Target |
 |---|---|---|---|
-| [nom] ([url]) | [prix] | [faiblesse] | [cible] |
+| [name] ([url]) | [price] | [weakness] | [target] |
 
-**Gap principal :** [une phrase sur l'opportunité réelle]
+**Main gap:** [one sentence on the real opportunity]
 
 ---
 
 ## Validation
 
-**Qui paie :** [profil exact]
-**Douleur :** [une phrase]
-**Distribution :** [canal évident ou risque nommé]
-**Effort build :** [semaines estimées]
-**Prix cible :** [fourchette]
+**Who pays:** [exact profile]
+**Pain:** [one sentence]
+**Distribution:** [obvious channel or named risk]
+**Build effort:** [estimated weeks]
+**Target price:** [range]
 
 ---
 
 ## Verdict
 
-[vert / jaune / rouge] — [2-3 phrases directes, pas de nuance si rouge]
+[green / yellow / red] — [2-3 direct sentences, no nuance if red]
 
-**Confidence :** [faible / moyen / élevé]
-- faible : sources limitées ou signaux contradictoires
-- moyen : quelques données fiables, gaps résiduels
-- élevé : sources multiples cohérentes, concurrents vérifiés
+**Confidence:** [low / medium / high]
+- low: limited sources or contradictory signals
+- medium: some reliable data, residual gaps
+- high: multiple coherent sources, verified competitors
 
-**Angle recommandé :** [positionnement simple et attaquable en solo]
-- Comment TOI tu joues le gap identifié sans équipe sales,
-  avec le stack Next.js/FastAPI
-- Ex: "Se positionner sur [segment sous-servi] avec [différenciation]
-  plutôt qu'attaquer [concurrent dominant] frontalement"
+**Recommended angle:** [simple positioning attackable solo]
+- How YOU play the identified gap without a sales team,
+  with the Next.js/FastAPI stack
+- E.g.: "Position on [underserved segment] with [differentiation]
+  rather than attacking [dominant competitor] head-on"
 
-**Prochaine action :**
-- Si vert : /sc [description feature]
-- Si jaune : [ce qui doit être validé avant de coder]
-- Si rouge : [pourquoi et ce qui changerait ca]
+**Next action:**
+- If green: /sc [feature description]
+- If yellow: [what must be validated before coding]
+- If red: [why and what would change it]
 
 ---
 
-## Sources consultées
+## Sources consulted
 
-- [url 1] - [ce qu'on y a trouvé]
-- [url 2] - [ce qu'on y a trouvé]
-- [mention si connaissance interne uniquement]
+- [url 1] - [what was found there]
+- [url 2] - [what was found there]
+- [mention if internal knowledge only]

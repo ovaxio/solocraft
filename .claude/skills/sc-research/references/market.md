@@ -1,33 +1,33 @@
-# Framework analyse marché — solo founder SaaS B2B France
+# Market analysis framework — solo founder SaaS B2B France
 
-## Questions clés
+## Key questions
 
-1. Taille du marché : est-il assez grand pour générer 10k€ MRR avec 2-5% ?
-2. Maturité : le marché comprend-il déjà qu'il a ce problème ?
-3. Timing : pourquoi maintenant ? Qu'est-ce qui a changé récemment ?
-4. Distribution : où sont les clients ? Comment les atteindre sans équipe commerciale ?
+1. Market size: is it large enough to generate 10k€ MRR with 2-5% share?
+2. Maturity: does the market already understand it has this problem?
+3. Timing: why now? What has changed recently?
+4. Distribution: where are the customers? How to reach them without a sales team?
 
-## Sources à privilégier pour le marché FR
+## Preferred sources for the FR market
 
-- Rapports Xerfi, INSEE, Statista France
-- Communautés métier (LinkedIn groupes pro, forums sectoriels)
-- Job offers dans le secteur (signalent les douleurs opérationnelles)
-- Reviews G2, Capterra pour les solutions existantes
+- Xerfi, INSEE, Statista France reports
+- Industry communities (LinkedIn professional groups, sector forums)
+- Job postings in the sector (signal operational pain points)
+- G2, Capterra reviews for existing solutions
 
-## Signaux positifs
+## Positive signals
 
-- Des gens paient déjà pour une solution imparfaite
-- Des threads Reddit/IH avec "I built X for myself because nothing existed"
-- Des job descriptions qui mentionnent ce problème manuellement
-- Des concurrents qui lèvent des fonds sur ce marché
+- People already pay for an imperfect solution
+- Reddit/IH threads with "I built X for myself because nothing existed"
+- Job descriptions that mention this problem as a manual process
+- Competitors raising funds in this market
 
-## Signaux d'alarme critiques
+## Critical red flags
 
-Compter ces signaux — si >= 2 -> verdict rouge automatique :
+Count these signals — if >= 2 -> automatic red verdict:
 
-1. Aucun concurrent = personne n'a voulu payer pour ca
-2. Marché dominé par 1-2 acteurs avec 10+ ans d'avance et budget R&D massif
-3. Cycle de vente > 6 mois (enterprise only, pas de PME accessibles)
-4. Réglementations bloquantes (données santé, finance réglementée sans agrément)
-5. Pas de distribution évidente sans équipe sales dédiée
-6. Problème que les cibles résolvent gratuitement sans douleur perçue
+1. No competitor = nobody has been willing to pay for this
+2. Market dominated by 1-2 players with 10+ years head start and massive R&D budget
+3. Sales cycle > 6 months (enterprise only, no accessible SMBs)
+4. Blocking regulations (health data, regulated finance without certification)
+5. No obvious distribution without a dedicated sales team
+6. Problem that targets solve for free with no perceived pain

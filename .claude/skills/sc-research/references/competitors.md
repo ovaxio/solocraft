@@ -1,29 +1,29 @@
-# Framework analyse concurrentielle rapide — solo founder
+# Quick competitive analysis framework — solo founder
 
-## Niveaux de concurrence
+## Levels of competition
 
-1. Concurrents directs : même problème, même cible, même solution
-2. Concurrents indirects : même problème, solution différente (Excel, email, process manuel)
-3. Substituts : le client résout le problème autrement (interne, consultant, rien)
+1. Direct competitors: same problem, same target, same solution
+2. Indirect competitors: same problem, different solution (Excel, email, manual process)
+3. Substitutes: the customer solves the problem another way (in-house, consultant, nothing)
 
-## Ce qu'on cherche dans chaque concurrent
+## What to look for in each competitor
 
-- Pricing : freemium, mensuel, annuel, usage-based ?
-- Traction : avis G2/Capterra, Product Hunt, GitHub stars si open source
-- Faiblesse principale : une seule phrase sur pourquoi les clients se plaignent
-- Cible réelle : PME, enterprise, solo, secteur spécifique ?
+- Pricing: freemium, monthly, annual, usage-based?
+- Traction: G2/Capterra reviews, Product Hunt, GitHub stars if open source
+- Main weakness: one sentence on why customers complain
+- Actual target: SMB, enterprise, solo, specific sector?
 
-## Framework de différenciation (April Dunford)
+## Differentiation framework (April Dunford)
 
-Pour chaque gap identifié, poser :
-- Est-ce que le marché cible ressent ce gap comme une vraie douleur ?
-- Peut-on le résoudre en 4-6 semaines de dev solo ?
-- Est-ce défendable (difficile à copier en 2 semaines) ?
+For each identified gap, ask:
+- Does the target market feel this gap as real pain?
+- Can it be solved in 4-6 weeks of solo dev?
+- Is it defensible (hard to copy in 2 weeks)?
 
-## Tableau output attendu
+## Expected output table
 
-| Concurrent | Pricing | G2/avis | Faiblesse principale | Cible |
+| Competitor | Pricing | G2/reviews | Main weakness | Target |
 |---|---|---|---|---|
-| [nom] | [prix] | [note/nb] | [une phrase] | [cible] |
+| [name] | [price] | [rating/count] | [one sentence] | [target] |
 
-Gap principal : [une phrase sur ce que personne ne fait bien pour notre cible]
+Main gap: [one sentence on what nobody does well for our target]
