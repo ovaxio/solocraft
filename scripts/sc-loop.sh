@@ -74,6 +74,9 @@ TOTAL=$(grep -c "^STEP" "$PLAN_FILE" || echo "0")
 echo "→ $TOTAL steps"
 echo ""
 
+# ── Set lane to doing ────────────────────────────────────────────────
+sed -i '' 's/^lane: planned/lane: doing/' "$PLAN_FILE" 2>/dev/null || true
+
 # ── Loop ──────────────────────────────────────────────────────────────
 DONE=0
 
@@ -108,6 +111,9 @@ PROMPT
 
   echo ""
 done
+
+# ── Set lane to done ──────────────────────────────────────────────────
+sed -i '' 's/^lane: doing/lane: done/' "$PLAN_FILE" 2>/dev/null || true
 
 # ── Report ────────────────────────────────────────────────────────────
 echo "=== Report ==="

@@ -29,6 +29,7 @@ Produce a precise, ordered implementation plan. Every step must be atomic and in
 
 ```
 ## Implementation Plan
+lane: planned
 
 **Estimated time:** [< 2h | half-day | 1 day | > 1 day]
 
@@ -63,4 +64,5 @@ Produce a precise, ordered implementation plan. Every step must be atomic and in
 - If a high-risk zone is touched: add a confirmation step immediately before that modification.
 - Maximum 12 steps. If more are needed, split into phases and present phase 1 only.
 - The "What NOT to do" section must reference at least one constraint from CLAUDE.md.
+- Toujours inclure un champ `lane: planned` en haut de chaque plan généré — le Solo Loop le met à `doing` au démarrage et `done` à la fin.
 - Do not begin implementation. Do not modify files. Only plan.

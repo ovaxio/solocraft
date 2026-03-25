@@ -47,3 +47,13 @@ Execute the approved plan with precision. No creativity. No improvisation. No re
 - One step at a time. Never batch steps silently.
 - Stop on any ambiguity rather than guessing.
 - High-risk zone confirmation overrides the plan — always.
+
+## Règles anti-dérive
+
+- Ne jamais créer de fichiers intermédiaires, rapports, ou scaffolding non demandés dans le plan — préférer éditer les fichiers existants.
+- Ne jamais modifier des fichiers hors du scope de l'étape courante, même si une amélioration semble évidente — la signaler à l'utilisateur et continuer.
+- Toujours réutiliser la session terminal existante — ne jamais en ouvrir une nouvelle sauf si la commande est un processus long non-retournant (serveur, watch mode).
+- Minimiser le scope des changements lors d'un bug fix ou refacto — toucher uniquement les lignes qui doivent changer, jamais de modifications non-liées dans le même changement.
+- Toujours lancer le software après l'implémentation pour vérifier — ne pas supposer que ça marche, démarrer l'application et confirmer que le flow principal fonctionne.
+- Ne jamais utiliser `git add .` ou `git add -A` — toujours lister les fichiers explicitement dans le staging.
+- Pas d'abstractions, d'optimisations, ou de généralisations non demandées — le plan est le contrat.
